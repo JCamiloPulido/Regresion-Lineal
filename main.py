@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 # 1) Subir archivo (OBLIGATORIO)
 # =========================================================
 
+
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 
@@ -37,6 +38,7 @@ if filename == "":
     raise ValueError("No seleccionaste ningún archivo.")
 
 print(f"Archivo seleccionado: {filename}")
+
 
 
 # =========================================================
@@ -119,6 +121,7 @@ print(f"y = {m:.6f} * x + {b:.6f}")
 
 print("\nTabla de datos:\n")
 print(df.to_string(index=False))
+
 
 # =========================================================
 # 6) Gráfico de dispersión + recta
