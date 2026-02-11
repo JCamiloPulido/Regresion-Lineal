@@ -1,19 +1,43 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from google.colab import files
+
 
 # =========================================================
 # 1) Subir archivo (OBLIGATORIO)
 # =========================================================
-print("Sube un archivo .xlsx/.xls o .txt/.csv con dos columnas: x y y")
-uploaded = files.upload()
 
-if len(uploaded) == 0:
-    raise ValueError("No subiste ningún archivo. Vuelve a ejecutar y carga un .xlsx/.xls o .txt/.csv.")
+from tkinter import Tk
+from tkinter.filedialog import askopenfilename
 
-filename = list(uploaded.keys())[0]
-print(f"Archivo cargado: {filename}")
+print("Abriendo selector de archivos...")
+
+try:
+    root = Tk()
+    root.withdraw()           # oculta la ventana principal
+    root.attributes("-topmost", True)  # fuerza que el diálogo salga al frente
+
+    filename = askopenfilename(
+        title="Selecciona archivo Excel o TXT/CSV",
+        filetypes=[
+            ("Archivos Excel", "*.xlsx *.xls"),
+            ("Archivos Texto/CSV", "*.txt *.csv"),
+            ("Todos los archivos", "*.*")
+        ]
+    )
+
+    root.destroy()
+
+except Exception as e:
+    print("No se pudo abrir el selector de archivos (tkinter).")
+    print("Error:", e)
+    filename = input("Escribe la ruta del archivo: ").strip()
+
+if filename == "":
+    raise ValueError("No seleccionaste ningún archivo.")
+
+print(f"Archivo seleccionado: {filename}")
+
 
 # =========================================================
 # 2) Leer el archivo según extensión
@@ -93,7 +117,8 @@ print(f"sum(x^2)= {sum_x2:.4f}")
 print("\nEcuación ajustada:")
 print(f"y = {m:.6f} * x + {b:.6f}")
 
-display(df)
+print("\nTabla de datos:\n")
+print(df.to_string(index=False))
 
 # =========================================================
 # 6) Gráfico de dispersión + recta
